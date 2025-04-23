@@ -8,11 +8,11 @@ package hospitalapplication.classes;
  *
  * @author Mariana
  */
-public class Department {
-    private String departmentName;
+public class Role {
+    private String roleName;
 
-    public Department(String departmentName) {
-        this.departmentName = departmentName;
+    public Role(String roleName) {
+        this.roleName = roleName;
     }
     
 }
