@@ -10,13 +10,11 @@ import java.util.Date;
  *
  * @author Mariana
  */
-public class Person {
-    private String name;
-    private Date dateOfBirth;
-    
-    public Person(String name, Date dateOfBirth) {
-        this.name = name;
-        this.dateOfBirth = dateOfBirth;
-    }
+public class Patient extends Person{
+    private Date AdmissionDate;
 
+    public Patient(Date AdmissionDate, String name, Date dateOfBirth) {
+        super(name, dateOfBirth);
+        this.AdmissionDate = AdmissionDate;
+    }    
 }
