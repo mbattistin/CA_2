@@ -9,6 +9,7 @@ import hospitalapplication.classes.Manager;
 import hospitalapplication.classes.Patient;
 import hospitalapplication.classes.Person;
 import hospitalapplication.classes.Role;
+import hospitalapplication.inpututilities.InputUtilities;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,8 @@ public class MainControllerManager {
     private InsertionSortList<Person> peopleList = new InsertionSortList<Person>();
     //type of date format where dd = days, MM = month, yyyy = year
     private final SimpleDateFormat simpleDateformatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);    
+    //it creates a new instance for the InputUtilities library to verify user inputs
+    private InputUtilities inputUtilities = new InputUtilities();
     
     //This method is static to be called in the Main
     public static void ExecuteMain(){
@@ -131,8 +134,26 @@ public class MainControllerManager {
             System.out.println(option);
         }    
         System.out.println("==========================================================================================");
+        //it calls the inputUtility library to ask the user input until is a valid input
+        selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu", 1, 4);
+        //it goes to call the specific action for the selected option in the menu
+        menuOptionActions(selectedMenuOption);        
+    }
+     
+     private void menuOptionActions(int selectedMenuOption){
+            MenuOptions selectedOption = MenuOptions.fromCode(selectedMenuOption);
+            //switch case to verify wich option was selected and call the specific actions
+            switch (selectedOption) {
+                case SORT -> {
+                    
+                }
+                case SEARCH -> {
 
-    }   
-    
-    
+                }
+                case ADD_RECORD -> {
+                    
+                }
+                case EXIT -> System.out.println("Thank you for visiting our system. See you next time!");
+            }         
+     }
 }
