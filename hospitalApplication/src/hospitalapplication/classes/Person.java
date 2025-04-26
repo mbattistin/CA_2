@@ -10,13 +10,23 @@ import java.util.Date;
  *
  * @author Mariana
  */
-public class Person {
+
+//the class implements the Comparable interface to enable its objects to be comparable
+//reference: https://java-programming.mooc.fi/part-10/2-interface-comparable
+public class Person implements Comparable<Person>{
     private String name;
     private Date dateOfBirth;
     
     public Person(String name, Date dateOfBirth) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    //it overites the method of comparison of the interface
+    @Override
+    public int compareTo(Person comparablePerson) {
+        //it compares the person by name, a common property from all the class' children
+        return this.name.compareTo(comparablePerson.name);
     }
 
 }
