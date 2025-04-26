@@ -14,8 +14,8 @@ import java.util.Date;
 //the class implements the Comparable interface to enable its objects to be comparable
 //reference: https://java-programming.mooc.fi/part-10/2-interface-comparable
 public class Person implements Comparable<Person>{
-    private String name;
-    private Date dateOfBirth;
+    protected String name;
+    protected Date dateOfBirth;   
     
     public Person(String name, Date dateOfBirth) {
         this.name = name;

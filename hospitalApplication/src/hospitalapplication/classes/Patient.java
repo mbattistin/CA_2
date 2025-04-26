@@ -11,10 +11,16 @@ import java.util.Date;
  * @author Mariana
  */
 public class Patient extends Person{
-    private Date AdmissionDate;
+    private Date admissionDate;
 
-    public Patient(Date AdmissionDate, String name, Date dateOfBirth) {
+    public Patient(Date admissionDate, String name, Date dateOfBirth) {
         super(name, dateOfBirth);
-        this.AdmissionDate = AdmissionDate;
-    }    
+        this.admissionDate = admissionDate;
+    }
+
+    //it overrides the toString method to return the formatted string
+    @Override
+    public String toString() {
+        return "Patient " + name + ", date of birth: " + dateOfBirth + ", admission: " + admissionDate +  ".";
+    }      
 }

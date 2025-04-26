@@ -10,7 +10,11 @@ package hospitalapplication.classes;
  */
 public class Role {
     private String roleName;
-
+    
+    public String getRoleName() {
+        return roleName;
+    }
+    
     public Role(String roleName) {
         this.roleName = roleName;
     }

@@ -16,4 +16,9 @@ public class Manager extends Employee{
         super(role, name, dateOfBirth, startDate);
     }
     
+    //it overrides the toString method to return the formatted string
+    @Override
+    public String toString() {
+        return "Manager " + name + ", date of birth: " + dateOfBirth + ", start working: " + startDate + ", role: " + role.getRoleName() + ".";
+    }    
 }

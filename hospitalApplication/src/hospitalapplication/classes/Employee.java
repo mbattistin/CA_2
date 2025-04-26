@@ -11,12 +11,18 @@ import java.util.Date;
  * @author Mariana
  */
 public class Employee extends Person{
-    private Role role;
-    private Date startDate;
+    protected Role role;
+    protected Date startDate;
     
     public Employee(Role role, String name, Date dateOfBirth, Date startDate) {
         super(name, dateOfBirth);
         this.role = role;
         this.startDate = startDate;
     }
+    
+    //it overrides the toString method to return the formatted string
+    @Override
+    public String toString() {
+        return "Employee " + name + ", date of birth: " + dateOfBirth + ", start working: " + startDate + ", role: " + role.getRoleName() + ".";
+    }   
 }

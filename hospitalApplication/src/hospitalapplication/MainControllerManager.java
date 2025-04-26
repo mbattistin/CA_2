@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -145,7 +146,9 @@ public class MainControllerManager {
             //switch case to verify wich option was selected and call the specific actions
             switch (selectedOption) {
                 case SORT -> {
-                    
+                    peopleList.insertionSort();
+                    displayPeopleList(20);
+                    displayMainMenuOptions();
                 }
                 case SEARCH -> {
 
@@ -155,5 +158,19 @@ public class MainControllerManager {
                 }
                 case EXIT -> System.out.println("Thank you for visiting our system. See you next time!");
             }         
+     }
+     
+     private void displayPeopleList(int displayNumberLimit){
+           
+           //it creates the iterator to go through any types of lists
+            Iterator iterator=  peopleList.iterator();
+            
+            int countLines = 0;
+           //it goes in each element of the queue and add to the string
+            while (iterator.hasNext() && countLines <= displayNumberLimit){
+                //it concats the string with the new text
+                System.out.println(iterator.next().toString());
+                countLines++;
+           }
      }
 }
