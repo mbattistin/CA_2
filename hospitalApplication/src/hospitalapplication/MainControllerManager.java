@@ -1,0 +1,118 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package hospitalapplication;
+
+import hospitalapplication.classes.Employee;
+import hospitalapplication.classes.Manager;
+import hospitalapplication.classes.Patient;
+import hospitalapplication.classes.Person;
+import hospitalapplication.classes.Role;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Mariana
+ */
+
+//This class was made to use in the main class. So the functions don't need to be all static.
+public class MainControllerManager {
+    private InsertionSortList<Person> peopleList = new InsertionSortList<Person>();
+    //type of date format where dd = days, MM = month, yyyy = year
+    private final SimpleDateFormat simpleDateformatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);    
+    
+    //This method is static to be called in the Main
+    public static void ExecuteMain(){
+        //Doing an instance of the own class, it is possible to use this new object to call non-static methods
+        MainControllerManager mainControllerManager = new MainControllerManager();
+        mainControllerManager.readInputFile();
+    }
+    private void readInputFile(){
+        //it creates a new instance of the Scanner to read the keybord input
+        Scanner scanner = new Scanner(System.in);
+        //variable to control if the file was read 
+        boolean fileRed = true;
+        //variable to control the current file line
+        int lineNumber = 1;
+        //this loop asks for the user input until it gets a valid file
+        //I choose do/while because the code needs to execute at least one time
+        do{
+            System.out.println("Please, enter the file name with the data");
+            //it reads the user input
+            String filename = scanner.nextLine();
+
+            //it creates a buffered reader that reads text line-by-line from the file
+            //it is inside a try/catch to avoid the system to crash
+            //Reference: https://www.geeksforgeeks.org/java-io-bufferedreader-class-java/
+            try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+                String line;
+                //this loop goes all the lines in the file 
+                while ((line = reader.readLine()) != null) {
+                    //it separates the line by ; and transform in an array
+                    String[] lineSplitted = line.split(";");
+                    //it is expected 4 properties in the line
+                    if (lineSplitted.length == 4) {
+                        String name = lineSplitted[0].trim();
+                        String dateOfBirth = lineSplitted[1].trim();
+                        String role = lineSplitted[2].trim();
+                        String date = lineSplitted[3].trim();
+
+                        insertObjectIntoList(name, dateOfBirth, role, date, lineNumber);
+                    }
+                    else{
+                        System.out.println("The text line " + lineNumber + " does not contains the correct number of parameters.");
+                    }
+                    
+                    lineNumber++;
+                }
+                fileRed = true;
+            } catch (Exception ex) {
+                System.out.println("An error happened while reading the file: " + ex.getMessage());
+                fileRed = false;
+            }            
+        }
+        while(fileRed);        
+    }
+    
+    
+    private void insertObjectIntoList(String name, String dateOfBirth,  String role, String dateAdmission, int line){
+        try {
+            //it convert the string into date object
+            Date dtOfBirth = simpleDateformatter.parse(dateOfBirth);
+            Date dtAdmission = simpleDateformatter.parse(dateAdmission);
+            
+            Person newPerson = null;
+            Role personRole = new Role(role);
+
+            switch (role.toLowerCase()) {
+                case "manager":
+                    newPerson = new Manager(personRole, name, dtOfBirth, dtAdmission);
+                    break;
+                case "employee":
+                    newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission);
+                    break;
+                case "patient":
+                    newPerson = new Patient(dtOfBirth, name, dtAdmission);
+                    break;
+                default:
+                    System.out.println("Unknown role: " + role + " at text line "+ line+ ". Person not included in the list.");
+            }
+            
+            if(newPerson != null){
+                peopleList.add(newPerson);
+            }
+        }
+        catch(Exception ex){
+            System.out.println("An error happen while reading the text in line " + line+ ".");
+            System.out.println("Error message: " + ex.getMessage());
+        }
+       
+        
+    }    
+}
