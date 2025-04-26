@@ -31,8 +31,12 @@ public class MainControllerManager {
     public static void ExecuteMain(){
         //Doing an instance of the own class, it is possible to use this new object to call non-static methods
         MainControllerManager mainControllerManager = new MainControllerManager();
+        //it call the method to read to ask and read the input file
         mainControllerManager.readInputFile();
+        //it displays the main menu
+        mainControllerManager.displayMainMenuOptions();
     }
+    
     private void readInputFile(){
         //it creates a new instance of the Scanner to read the keybord input
         Scanner scanner = new Scanner(System.in);
@@ -72,12 +76,13 @@ public class MainControllerManager {
                     lineNumber++;
                 }
                 fileRed = true;
+                System.out.println("The text file was read successfully.");
             } catch (Exception ex) {
                 System.out.println("An error happened while reading the file: " + ex.getMessage());
                 fileRed = false;
             }            
         }
-        while(fileRed);        
+        while(!fileRed);        
     }
     
     
@@ -101,7 +106,7 @@ public class MainControllerManager {
                     newPerson = new Patient(dtOfBirth, name, dtAdmission);
                     break;
                 default:
-                    System.out.println("Unknown role: " + role + " at text line "+ line+ ". Person not included in the list.");
+                    System.out.println("Unknown role: " + role + " at text line "+ line + ". Person not included in the list.");
             }
             
             if(newPerson != null){
@@ -109,10 +114,25 @@ public class MainControllerManager {
             }
         }
         catch(Exception ex){
-            System.out.println("An error happen while reading the text in line " + line+ ".");
+            System.out.println("An error happen while reading the text in line " + line + ".");
             System.out.println("Error message: " + ex.getMessage());
         }
-       
+    }   
+    
+    
+     public  void displayMainMenuOptions(){
+        int selectedMenuOption = 0;
         
-    }    
+        //display menu options
+        System.out.println("==========================================================================================");
+        System.out.println("|                                     Hospital System Menu                               |");
+        System.out.println("==========================================================================================");
+        for (MenuOptions option : MenuOptions.values()) {
+            System.out.println(option);
+        }    
+        System.out.println("==========================================================================================");
+
+    }   
+    
+    
 }
