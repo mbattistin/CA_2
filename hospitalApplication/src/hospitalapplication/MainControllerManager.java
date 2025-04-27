@@ -4,11 +4,18 @@
  */
 package hospitalapplication;
 
+import hospitalapplication.enums.MenuOptions;
 import hospitalapplication.classes.Employee;
 import hospitalapplication.classes.Manager;
 import hospitalapplication.classes.Patient;
+import hospitalapplication.classes.PeopleRandomDatabase;
 import hospitalapplication.classes.Person;
 import hospitalapplication.classes.Role;
+import hospitalapplication.enums.AddRecordMenuOptions;
+import static hospitalapplication.enums.MenuOptions.ADD_RECORD;
+import static hospitalapplication.enums.MenuOptions.EXIT;
+import static hospitalapplication.enums.MenuOptions.SEARCH;
+import static hospitalapplication.enums.MenuOptions.SORT;
 import hospitalapplication.inpututilities.InputUtilities;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -35,6 +42,8 @@ public class MainControllerManager {
     public static void ExecuteMain(){
         //Doing an instance of the own class, it is possible to use this new object to call non-static methods
         MainControllerManager mainControllerManager = new MainControllerManager();
+        
+        System.out.println("Welcome to Hospital System!");
         //it call the method to read to ask and read the input file
         mainControllerManager.readInputFile();
         //it displays the main menu
@@ -51,7 +60,7 @@ public class MainControllerManager {
         //this loop asks for the user input until it gets a valid file
         //I choose do/while because the code needs to execute at least one time
         do{
-            System.out.println("Please, enter the file name with the data");
+            System.out.println("Please, enter the file name with the data you want to work with:");
             //it reads the user input
             String filename = scanner.nextLine();
 
@@ -100,17 +109,11 @@ public class MainControllerManager {
             Role personRole = new Role(role);
 
             switch (role.toLowerCase()) {
-                case "manager":
-                    newPerson = new Manager(personRole, name, dtOfBirth, dtAdmission);
-                    break;
-                case "employee":
-                    newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission);
-                    break;
-                case "patient":
-                    newPerson = new Patient(dtOfBirth, name, dtAdmission);
-                    break;
-                default:
-                    System.out.println("Unknown role: " + role + " at text line "+ line + ". Person not included in the list.");
+                case "manager" -> newPerson = new Manager(personRole, name, dtOfBirth, dtAdmission);
+                case "nurse" -> newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission);
+                case "doctor" -> newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission);
+                case "patient" -> newPerson = new Patient(dtOfBirth, name, dtAdmission);
+                default -> System.out.println("Unknown role: " + role + " at text line "+ line + ". Person not included in the list.");
             }
             
             if(newPerson != null){
@@ -138,10 +141,10 @@ public class MainControllerManager {
         //it calls the inputUtility library to ask the user input until is a valid input
         selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu", 1, 4);
         //it goes to call the specific action for the selected option in the menu
-        menuOptionActions(selectedMenuOption);        
+        mainMenuOptionActions(selectedMenuOption);        
     }
      
-     private void menuOptionActions(int selectedMenuOption){
+     private void mainMenuOptionActions(int selectedMenuOption){
             MenuOptions selectedOption = MenuOptions.fromCode(selectedMenuOption);
             //switch case to verify wich option was selected and call the specific actions
             switch (selectedOption) {
@@ -154,7 +157,7 @@ public class MainControllerManager {
 
                 }
                 case ADD_RECORD -> {
-                    
+                    displayAddRecordMenu();
                 }
                 case EXIT -> System.out.println("Thank you for visiting our system. See you next time!");
             }         
@@ -172,5 +175,47 @@ public class MainControllerManager {
                 System.out.println(iterator.next().toString());
                 countLines++;
            }
+     }
+
+     private void displayAddRecordMenu(){
+        int selectedMenuOption = 0;
+        for (AddRecordMenuOptions option : AddRecordMenuOptions.values()) {
+            System.out.println(option);
+        }
+        //it calls the inputUtility library to ask the user input until is a valid input
+        selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu", 1, 4);
+        addRecordMenuOptionActions(selectedMenuOption);
+     }
+     
+     private void addRecordMenuOptionActions(int selectedMenuOption){
+            AddRecordMenuOptions selectedOption = AddRecordMenuOptions.fromCode(selectedMenuOption);
+            //switch case to verify wich option was selected and call the specific actions
+            switch (selectedOption) {
+                case ADD_PERSON -> {
+
+                }
+                case RANDOM_PERSON -> {
+                    //it calls the method to add a random record
+                    addRandomRecord();
+                    //it calls the display method to bring all the list
+                    displayPeopleList(peopleList.size());
+                    //it calls back add record menu
+                    displayAddRecordMenu();
+                }
+                //it comes back to the main menu
+                case EXIT -> displayMainMenuOptions();
+            }         
+     }
+     
+     private void addRandomRecord(){
+         //it calls the static class to bring random information
+         String name = PeopleRandomDatabase.getRandomFirstName() + " " + PeopleRandomDatabase.getRandomSurname();
+         String dob = PeopleRandomDatabase.getRandomDate(1925, 2025);
+         String dtAdmission = PeopleRandomDatabase.getRandomDate(2021, 2025);
+         String role = PeopleRandomDatabase.getRandomRole();
+         //it calls the method to insert object into the list
+         insertObjectIntoList(name, dob, role, dtAdmission, 0);
+         //it displays a message to the user
+         System.out.println(role + " " + name + ", date of birth: " + dob + ", admission: " + dtAdmission +  " was added to the list.");
      }
 }
