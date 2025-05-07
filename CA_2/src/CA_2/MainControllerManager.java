@@ -22,7 +22,7 @@ import java.util.Scanner;
 
 //This class was made to use in the main class. So the functions don't need to be all static.
 public class MainControllerManager {
-    private InsertionSortList<Person> peopleList = new InsertionSortList<Person>();
+    private ApplicationList<Person> peopleList = new ApplicationList<Person>();
     //type of date format where dd = days, MM = month, yyyy = year
     private final SimpleDateFormat simpleDateformatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);    
     //it creates a new instance for the InputUtilities library to verify user inputs
@@ -140,11 +140,14 @@ public class MainControllerManager {
             switch (selectedOption) {
                 case SORT -> {
                     peopleList.insertionSort();
+                    //it sets the list to sorted
+                    peopleList.setIsListSorted(true);
                     displayPeopleList(20);
                     displayMainMenuOptions();
                 }
                 case SEARCH -> {
-
+                    searchPeople();
+                    displayMainMenuOptions();
                 }
                 case ADD_RECORD -> {
                     displayAddRecordMenu();
@@ -210,12 +213,14 @@ public class MainControllerManager {
          String role = PeopleRandomDatabase.getRandomRole();
          //it calls the method to insert object into the list
          insertObjectIntoList(name, dob, role, dtAdmission, 0);
+         //it sets the list to unsorted again
+         peopleList.setIsListSorted(false);
          //it displays a message to the user
          System.out.println(role + " " + name + ", date of birth: " + dob + ", admission: " + dtAdmission +  " was added to the list.");
      }
      
      private void addManualRecord(){
-         //it calls the static class to bring random information
+         //it asks for the user to inser the inputs
         String name = inputUtilities.askUserForText("Insert the person name:");
         String dob = inputUtilities.askUserForDate("Insert date of birth:");
         String dtAdmission = inputUtilities.askUserForDate("Insert the date of admission");
@@ -229,7 +234,34 @@ public class MainControllerManager {
         String role = RolesOptions.fromCode(selectedMenuOption).getOptionDescription();
         //it calls the method to insert object into the list
         insertObjectIntoList(name, dob, role, dtAdmission, 0);
+        //it sets the list to unsorted again
+        peopleList.setIsListSorted(false);
         //it displays a message to the user
         System.out.println(role + " " + name + ", date of birth: " + dob + ", admission: " + dtAdmission +  " was added to the list.");
+     }
+     
+     private void searchPeople(){
+         //it asks for the user to insert the input for the search
+        String name = inputUtilities.askUserForText("Insert the person name for the search:");
+        //it creates a new instance of person with the given name tobe used in the search
+        Person person = new Person(name, new Date());
+        int peoplePosition;
+        //if the list is sorted, it calls the binary search
+        if(peopleList.isIsListSorted()){
+            peoplePosition = peopleList.orderedBinarySearch(person, 0, peopleList.size() - 1);
+        }else{
+            //if the list is unsorted, it calls the linear search
+            peoplePosition = peopleList.unorderedLinearSearch(person);
+        }
+        //if the position is greater than -1, it means it found a record
+        if(peoplePosition > -1){
+            person = peopleList.get(peoplePosition);
+            System.out.println("The person was found: " + person.toString());
+        }
+        else{
+            //otherwise, it displays no person was found.
+            System.out.println("No person found!");
+        }
+        
      }
 }
