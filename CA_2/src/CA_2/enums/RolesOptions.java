@@ -2,24 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package hospitalapplication.enums;
+package CA_2.enums;
 
 /**
  *
  * @author Mariana
  */
-public enum AddRecordMenuOptions {
+public enum RolesOptions {
     //it sets the enum values with a number and a description
-    ADD_PERSON(1, "Add person"),
-    RANDOM_PERSON(2, "Generate random person"),
-    EXIT(3, "Cancel");
+    DOCTOR(1, "Doctor"),
+    MANAGER(2, "Manager"),
+    NURSE(3, "Nurse"),
+    PATIENT(4, "Patient");
 
     //it stores the number and description for the enum
     private final int optionNumber;
     private final String optionDescription;
 
     //enum constructor that sets the values when created
-    AddRecordMenuOptions(int optionNumber, String optionDescription) {
+    RolesOptions(int optionNumber, String optionDescription) {
         this.optionNumber = optionNumber;
         this.optionDescription = optionDescription;
     }
@@ -34,9 +35,9 @@ public enum AddRecordMenuOptions {
         return optionDescription;
     }
 
-    public static AddRecordMenuOptions fromCode(int optionNumber) {
+    public static RolesOptions fromCode(int optionNumber) {
         //it does a loop and returns the option selected
-        for (AddRecordMenuOptions option : AddRecordMenuOptions.values()) {
+        for (RolesOptions option : RolesOptions.values()) {
             if (option.optionNumber == optionNumber) {
                 return option;
             }
@@ -49,5 +50,5 @@ public enum AddRecordMenuOptions {
     @Override
     public String toString() {
         return optionNumber + ". " + optionDescription;
-    }      
+    }    
 }

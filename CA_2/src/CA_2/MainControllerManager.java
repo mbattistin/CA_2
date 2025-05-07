@@ -2,21 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package hospitalapplication;
+package CA_2;
 
-import hospitalapplication.enums.MenuOptions;
-import hospitalapplication.classes.Employee;
-import hospitalapplication.classes.Manager;
-import hospitalapplication.classes.Patient;
-import hospitalapplication.classes.PeopleRandomDatabase;
-import hospitalapplication.classes.Person;
-import hospitalapplication.classes.Role;
-import hospitalapplication.enums.AddRecordMenuOptions;
-import static hospitalapplication.enums.MenuOptions.ADD_RECORD;
-import static hospitalapplication.enums.MenuOptions.EXIT;
-import static hospitalapplication.enums.MenuOptions.SEARCH;
-import static hospitalapplication.enums.MenuOptions.SORT;
-import hospitalapplication.inpututilities.InputUtilities;
+import CA_2.classes.*;
+import CA_2.enums.*;
+import CA_2.inpututilities.InputUtilities;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
@@ -139,7 +129,7 @@ public class MainControllerManager {
         }    
         System.out.println("==========================================================================================");
         //it calls the inputUtility library to ask the user input until is a valid input
-        selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu", 1, 4);
+        selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu:", 1, 4);
         //it goes to call the specific action for the selected option in the menu
         mainMenuOptionActions(selectedMenuOption);        
     }
@@ -183,7 +173,7 @@ public class MainControllerManager {
             System.out.println(option);
         }
         //it calls the inputUtility library to ask the user input until is a valid input
-        selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu", 1, 4);
+        selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu:", 1, 4);
         addRecordMenuOptionActions(selectedMenuOption);
      }
      
@@ -192,7 +182,12 @@ public class MainControllerManager {
             //switch case to verify wich option was selected and call the specific actions
             switch (selectedOption) {
                 case ADD_PERSON -> {
-
+                    //it calls the method to add manually the person
+                    addManualRecord();
+                    //it calls the display method to bring all the list
+                    displayPeopleList(peopleList.size());
+                    //it calls back add record menu
+                    displayAddRecordMenu();
                 }
                 case RANDOM_PERSON -> {
                     //it calls the method to add a random record
@@ -217,5 +212,24 @@ public class MainControllerManager {
          insertObjectIntoList(name, dob, role, dtAdmission, 0);
          //it displays a message to the user
          System.out.println(role + " " + name + ", date of birth: " + dob + ", admission: " + dtAdmission +  " was added to the list.");
+     }
+     
+     private void addManualRecord(){
+         //it calls the static class to bring random information
+        String name = inputUtilities.askUserForText("Insert the person name:");
+        String dob = inputUtilities.askUserForDate("Insert date of birth:");
+        String dtAdmission = inputUtilities.askUserForDate("Insert the date of admission");
+        //it displays the roles option
+        for (RolesOptions option : RolesOptions.values()) {
+            System.out.println(option);
+        }
+        //it asks user input to select the option
+        int selectedMenuOption = inputUtilities.askUserForInt("Select the person role:", 1, 4);
+        //it retrieves the role's description
+        String role = RolesOptions.fromCode(selectedMenuOption).getOptionDescription();
+        //it calls the method to insert object into the list
+        insertObjectIntoList(name, dob, role, dtAdmission, 0);
+        //it displays a message to the user
+        System.out.println(role + " " + name + ", date of birth: " + dob + ", admission: " + dtAdmission +  " was added to the list.");
      }
 }
