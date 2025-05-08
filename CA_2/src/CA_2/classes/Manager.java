@@ -12,13 +12,13 @@ import java.util.Date;
  */
 public class Manager extends Employee{
     
-    public Manager(Role role, String name, Date dateOfBirth, Date startDate) {
-        super(role, name, dateOfBirth, startDate);
+    public Manager(Role role, String name, Date dateOfBirth, Date startDate, Department department) {
+        super(role, name, dateOfBirth, startDate, department);
     }
     
     //it overrides the toString method to return the formatted string
     @Override
     public String toString() {
-        return "Manager " + name + ", date of birth: " + dateOfBirth + ", start working: " + startDate + ", role: " + role.getRoleName() + ".";
+        return "Manager " + name + " of the department " + department.getDepartment() + ", date of birth: " + dateOfBirth + ", start working: " + startDate + ", role: " + role.getRoleName() + ".";
     }    
 }

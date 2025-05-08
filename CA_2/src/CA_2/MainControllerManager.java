@@ -58,19 +58,20 @@ public class MainControllerManager {
             //it is inside a try/catch to avoid the system to crash
             //Reference: https://www.geeksforgeeks.org/java-io-bufferedreader-class-java/
             try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-                String line;
+                //it reads the first line to skip it
+                String line =  reader.readLine();
                 //this loop goes all the lines in the file 
                 while ((line = reader.readLine()) != null) {
                     //it separates the line by ; and transform in an array
                     String[] lineSplitted = line.split(";");
                     //it is expected 4 properties in the line
-                    if (lineSplitted.length == 4) {
-                        String name = lineSplitted[0].trim();
-                        String dateOfBirth = lineSplitted[1].trim();
-                        String role = lineSplitted[2].trim();
+                    if (lineSplitted.length == 5) {
+                        String role = lineSplitted[0].trim();
+                        String name = lineSplitted[1].trim();
+                        String dateOfBirth = lineSplitted[2].trim();
                         String date = lineSplitted[3].trim();
-
-                        insertObjectIntoList(name, dateOfBirth, role, date, lineNumber);
+                        String department = lineSplitted[4].trim();
+                        insertObjectIntoList(name, dateOfBirth, role, date,department, lineNumber);
                     }
                     else{
                         System.out.println("The text line " + lineNumber + " does not contains the correct number of parameters.");
@@ -89,7 +90,7 @@ public class MainControllerManager {
     }
     
     
-    private void insertObjectIntoList(String name, String dateOfBirth,  String role, String dateAdmission, int line){
+    private void insertObjectIntoList(String name, String dateOfBirth,  String role, String dateAdmission,String department,  int line){
         try {
             //it convert the string into date object
             Date dtOfBirth = simpleDateformatter.parse(dateOfBirth);
@@ -97,12 +98,12 @@ public class MainControllerManager {
             
             Person newPerson = null;
             Role personRole = new Role(role);
-
+            Department personDepartment = new Department(department, "");
             switch (role.toLowerCase()) {
-                case "manager" -> newPerson = new Manager(personRole, name, dtOfBirth, dtAdmission);
-                case "nurse" -> newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission);
-                case "doctor" -> newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission);
-                case "patient" -> newPerson = new Patient(dtOfBirth, name, dtAdmission);
+                case "manager" -> newPerson = new Manager(personRole, name, dtOfBirth, dtAdmission, personDepartment);
+                case "nurse" -> newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission, personDepartment);
+                case "doctor" -> newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission, personDepartment);
+                case "patient" -> newPerson = new Patient(dtOfBirth, name, dtAdmission, personDepartment);
                 default -> System.out.println("Unknown role: " + role + " at text line "+ line + ". Person not included in the list.");
             }
             
@@ -211,8 +212,9 @@ public class MainControllerManager {
          String dob = PeopleRandomDatabase.getRandomDate(1925, 2025);
          String dtAdmission = PeopleRandomDatabase.getRandomDate(2021, 2025);
          String role = PeopleRandomDatabase.getRandomRole();
+         String department = PeopleRandomDatabase.getRandomDepartment();
          //it calls the method to insert object into the list
-         insertObjectIntoList(name, dob, role, dtAdmission, 0);
+         insertObjectIntoList(name, dob, role, dtAdmission,department, 0);
          //it sets the list to unsorted again
          peopleList.setIsListSorted(false);
          //it displays a message to the user
@@ -224,6 +226,7 @@ public class MainControllerManager {
         String name = inputUtilities.askUserForText("Insert the person name:");
         String dob = inputUtilities.askUserForDate("Insert date of birth:");
         String dtAdmission = inputUtilities.askUserForDate("Insert the date of admission");
+        
         //it displays the roles option
         for (RolesOptions option : RolesOptions.values()) {
             System.out.println(option);
@@ -232,8 +235,18 @@ public class MainControllerManager {
         int selectedMenuOption = inputUtilities.askUserForInt("Select the person role:", 1, 4);
         //it retrieves the role's description
         String role = RolesOptions.fromCode(selectedMenuOption).getOptionDescription();
+        
+        //it displays the department option
+        for (DepartmentsOptions option : DepartmentsOptions.values()) {
+            System.out.println(option);
+        }
+        //it asks user input to select the option
+        selectedMenuOption = inputUtilities.askUserForInt("Select the person department:", 1, 6);
+        //it retrieves the department's description
+        String department = DepartmentsOptions.fromCode(selectedMenuOption).getOptionDescription();
+        
         //it calls the method to insert object into the list
-        insertObjectIntoList(name, dob, role, dtAdmission, 0);
+        insertObjectIntoList(name, dob, role, dtAdmission, department, 0);
         //it sets the list to unsorted again
         peopleList.setIsListSorted(false);
         //it displays a message to the user

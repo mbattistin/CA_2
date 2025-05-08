@@ -4,6 +4,7 @@
  */
 package CA_2.classes;
 
+import CA_2.enums.*;
 import java.util.Random;
 
 /**
@@ -34,12 +35,7 @@ public class PeopleRandomDatabase {
         "Moura", "Teixeira", "Mendes", "Batista", "Ramos", "Castro",
         "Nunes", "Moreira", "Cardoso", "Pinto", "Vieira", "Onneal"
     };
-    
-    //it sets a list of roles
-    private static final String[] ROLES = {
-        "Patient", "Manager", "Nurse", "Doctor"
-    }; 
-    
+   
     //it gets a random name using the random nextInt to return a random number with the max value of the list lenght
     public static String getRandomFirstName() {
         return FIRST_NAMES[random.nextInt(FIRST_NAMES.length)];
@@ -50,9 +46,14 @@ public class PeopleRandomDatabase {
         return SURNAMES[random.nextInt(SURNAMES.length)];
     }
     
-    //it gets a random role using the random nextInt to return a random number with the max value of the list lenght
+    //it gets a random role in the enum using the random nextInt to return a random number with the max value of the enum list
     public static String getRandomRole() {
-        return ROLES[random.nextInt(ROLES.length)];
+        return RolesOptions.fromCode(random.nextInt(RolesOptions.values().length)).getOptionDescription();
+    }
+    
+    //it gets a random department in the enum using the random nextInt to return a random number with the max value of the enum list
+    public static String getRandomDepartment() {
+        return DepartmentsOptions.fromCode(random.nextInt(DepartmentsOptions.values().length)).getOptionDescription();
     }
     
     //it gets randon number for year, month and day

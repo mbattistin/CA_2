@@ -1,0 +1,42 @@
+Type;Name;BirthDate;AdmissionDate;Department
+Manager;Mariana Battistin;15/12/1993;10/02/2020
+Doctor;Lucas Almeida; 03/05/1987;12/06/2019;Cardiology
+Nurse;Fernanda Costa; 22/08/1990;01/03/2021;Emergency
+Doctor;Carlos Silva; 10/11/1982;20/01/2022;General
+Doctor;Juliana Mendes; 07/04/1995;05/07/2020;Psychiatry
+Manager;Eduardo Pinto; 29/09/1984;14/11/2018;General
+Nurse;Ana Beatriz Rocha; 02/02/1991;03/04/2023;Orthopedics
+Doctor;Tiago Fernandes; 17/06/1989;25/09/2020;Psychiatry
+Manager;Paula Lima; 19/01/1986;12/12/2017;General
+Patient;Mateus Souza; 13/10/2020;28/06/2021;Pediatrics
+Nurse;Clara Ribeiro; 25/03/1992;10/10/2019;Emergency
+Doctor;Renato Azevedo; 30/07/1988;07/01/2020;Cardiology
+Patient;Gabriela Torres; 06/12/1990;18/08/2022;Emergency
+Manager;Bruno Carvalho; 11/11/1985;09/09/2016;General
+Nurse;Larissa Martins; 04/09/1996;27/04/2021;Psychiatry
+Doctor;Fábio Nascimento; 20/05/1993;03/12/2019;Cardiology
+Manager;Daniela Cunha; 01/01/1987;13/05/2020;Orthopedics
+Nurse;Leandro Monteiro; 09/08/1990;16/03/2023;Pediatrics
+Nurse;Isabela Freitas; 28/02/1989;22/07/2022;Emergency
+Doctor;Vinícius Teixeira; 12/06/1992;04/11/2020;General
+Manager;Débora Barros; 16/03/1994;01/09/2018;Cardiology
+Patient;André Lopes; 18/07/1986;07/06/2021;Orthopedics
+Nurse;Camila Dias; 21/10/1991;11/02/2020;Emergency
+Doctor;Marcelo Ramos; 14/01/1988;06/05/2023;Psychiatry
+Manager;Patrícia Soares; 31/08/1985;19/10/2017;Pediatrics
+Manager;Rodrigo Moreira; 23/04/1990;09/03/2020;General
+Nurse;Aline Cardoso; 27/07/1993;15/12/2022;Cardiology
+Doctor;Thiago Batista; 10/11/1989;28/02/2021;Psychiatry
+Manager;Natalia Farias; 06/05/1984;24/07/2016;Orthopedics
+Patient;Gustavo Rocha; 15/09/1991;02/10/2022;General
+Nurse;Letícia Camargo; 13/03/1995;30/11/2020;Pediatrics
+Doctor;Felipe Duarte; 17/08/1992;17/08/2019;Cardiology
+Manager;Bruna Gonçalves; 02/12/1990;08/04/2020;Emergency
+Patient;Rafael Barreto; 05/10/1987;21/06/2021;Psychiatry
+Nurse;Sabrina Antunes; 26/06/1994;05/01/2023;Orthopedics
+Doctor;Igor Matos; 29/01/1993;16/10/2018;General
+Manager;Vanessa Neves; 08/04/1990;03/03/2020;Pediatrics
+Doctor;Hugo Peixoto; 11/07/1985;10/12/2021;Emergency
+Nurse;Tatiane Leal; 20/02/1992;29/06/2020;Cardiology
+Doctor;Caio Brito; 07/09/1996;14/05/2022;Orthopedics
+Manager;Jéssica Prado; 24/11/1988;26/07/2017;Psychiatry
