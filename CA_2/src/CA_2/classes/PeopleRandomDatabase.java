@@ -38,22 +38,25 @@ public class PeopleRandomDatabase {
    
     //it gets a random name using the random nextInt to return a random number with the max value of the list lenght
     public static String getRandomFirstName() {
-        return FIRST_NAMES[random.nextInt(FIRST_NAMES.length)];
+        return FIRST_NAMES[random.nextInt(FIRST_NAMES.length - 1)];
     }
     
     //it gets a random surname using the random nextInt to return a random number with the max value of the list lenght
     public static String getRandomSurname() {
-        return SURNAMES[random.nextInt(SURNAMES.length)];
+        return SURNAMES[random.nextInt(SURNAMES.length - 1)];
     }
     
     //it gets a random role in the enum using the random nextInt to return a random number with the max value of the enum list
     public static String getRandomRole() {
-        return RolesOptions.fromCode(random.nextInt(RolesOptions.values().length)).getOptionDescription();
+        int  enumLength = RolesOptions.values().length;
+        
+        return RolesOptions.fromCode(random.nextInt(1, enumLength)).getOptionDescription();
     }
     
     //it gets a random department in the enum using the random nextInt to return a random number with the max value of the enum list
     public static String getRandomDepartment() {
-        return DepartmentsOptions.fromCode(random.nextInt(DepartmentsOptions.values().length)).getOptionDescription();
+        int  enumLength = DepartmentsOptions.values().length;
+        return DepartmentsOptions.fromCode(random.nextInt(1, enumLength)).getOptionDescription();
     }
     
     //it gets randon number for year, month and day
@@ -62,6 +65,6 @@ public class PeopleRandomDatabase {
         int year = random.nextInt(endYear - startYear + 1) + startYear;
         int month = random.nextInt(12) + 1;
         int day = random.nextInt(28) + 1;
-        return day + "/" + month + "/" + year;
+        return String.format("%02d", day) + "/" + String.format("%02d", month) + "/" + year;
     }
 }

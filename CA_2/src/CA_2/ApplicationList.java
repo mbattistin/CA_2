@@ -76,7 +76,14 @@ public class ApplicationList<ElementType> extends ArrayList<ElementType> {
     public int orderedBinarySearch(ElementType keyElement, int start, int end) {
         //it checks if the start is equals to end
         if (start == end) {
-            return -1;
+            //it checks if the element is not in the first/last position in the list
+            if((((Comparable) get(start)).compareTo(keyElement)) == 0){
+                return start;
+            }
+            else{
+                //no element found
+                return -1;
+            }
         }
 
         //it calculates the middle position of the list

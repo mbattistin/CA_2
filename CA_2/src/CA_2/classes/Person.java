@@ -26,7 +26,7 @@ public class Person implements Comparable<Person>{
     @Override
     public int compareTo(Person comparablePerson) {
         //it compares the person by name, a common property from all the class' children
-        return this.name.compareTo(comparablePerson.name);
+        return this.name.toLowerCase().compareTo(comparablePerson.name.toLowerCase());
     }
 
 }
