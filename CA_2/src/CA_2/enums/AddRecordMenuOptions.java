@@ -10,8 +10,8 @@ package CA_2.enums;
  */
 public enum AddRecordMenuOptions {
     //it sets the enum values with a number and a description
-    ADD_PERSON(1, "Add person"),
-    RANDOM_PERSON(2, "Generate random person"),
+    ADD_PERSON(1, "Add user"),
+    RANDOM_PERSON(2, "Generate random user"),
     EXIT(3, "Cancel");
 
     //it stores the number and description for the enum

@@ -10,6 +10,8 @@ import CA_2.inpututilities.InputUtilities;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
@@ -67,7 +69,7 @@ public class MainControllerManager {
                 while ((line = reader.readLine()) != null) {
                     //it separates the line by ; and transform in an array
                     String[] lineSplitted = line.split(";");
-                    //it is expected 4 properties in the line
+                    //it is expected 5 properties in the line
                     if (lineSplitted.length == 5) {
                         String role = lineSplitted[0].trim();
                         String name = lineSplitted[1].trim();
@@ -82,7 +84,7 @@ public class MainControllerManager {
                     
                     lineNumber++;
                 }
-                
+                //it checks if there was no records in the file
                 if(peopleList.isEmpty()){
                     fileRed = false;
                     System.out.println("File with no valid records.");
@@ -110,6 +112,7 @@ public class MainControllerManager {
             Person newPerson = null;
             Role personRole = new Role(role);
             Department personDepartment = new Department(department, "");
+            //switch case to create the right object instance
             switch (role.toLowerCase()) {
                 case "manager" -> newPerson = new Manager(personRole, name, dtOfBirth, dtAdmission, personDepartment);
                 case "nurse" -> newPerson = new Employee(personRole, name, dtOfBirth, dtAdmission, personDepartment);
@@ -195,7 +198,7 @@ public class MainControllerManager {
         }
         System.out.println("==========================================================================================================================================================");
         //it calls the inputUtility library to ask the user input until is a valid input
-        selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu:", 1, 4);
+        selectedMenuOption = inputUtilities.askUserForInt("Select one option from the menu:", 1, 3);
         addRecordMenuOptionActions(selectedMenuOption);
      }
      
@@ -246,10 +249,17 @@ public class MainControllerManager {
         System.out.println("==========================================================================================================================================================");
         System.out.println("|                                                                        New User                                                                        |");
         System.out.println("=========================================================================================================================================================="); 
-         //it asks for the user to inser the inputs
+        LocalDate now = LocalDate.now();
+        LocalDate hundredYearsAgo = now.minusYears(100);
+        
+        //it asks for the user to inser the inputs
         String name = inputUtilities.askUserForText("Insert the user name:");
-        String dob = inputUtilities.askUserForDate("Insert date of birth:");
-        String dtAdmission = inputUtilities.askUserForDate("Insert the date of admission");
+        String dob = inputUtilities.askUserForDate("Insert user date of birth:", 
+                Date.from(hundredYearsAgo.atStartOfDay(ZoneId.systemDefault()).toInstant()), 
+                Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        String dtAdmission = inputUtilities.askUserForDate("Insert user date of admission:", 
+                Date.from(hundredYearsAgo.atStartOfDay(ZoneId.systemDefault()).toInstant()), 
+                Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         
         //it displays the roles option
         for (RolesOptions option : RolesOptions.values()) {

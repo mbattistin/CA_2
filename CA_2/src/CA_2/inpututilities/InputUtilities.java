@@ -62,29 +62,31 @@ public class InputUtilities {
         return (userInput);
     }
     
-    public String askUserForDate(String prompt){
+        public String askUserForDate(String prompt, Date minDate, Date maxDate){
             Scanner myKB = new Scanner(System.in);
             String userInput;
             boolean isDatevalid = true;
-            //format the string to the given date format
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date inputDate = new Date();
+            String formattedDate = "";
             do{            
                 System.out.println(prompt);
-                System.out.println("You must enter a date (Eg. 20/01/2025)");
+                System.out.println("You must enter a date between than " + dateFormat.format(minDate) + " and " + dateFormat.format(maxDate) + " (Eg. 20/01/2024)");
                 
                 userInput = myKB.nextLine();    
                 try {
-                    //try to parse the String to Date
                     inputDate = dateFormat.parse(userInput);
+                    formattedDate = dateFormat.format(inputDate);
                     isDatevalid = true;
+                            
                 } catch (ParseException e) {
                     isDatevalid =  false; 
                     myKB.next();
-                }    
-            }while (!isDatevalid);
-            //userinput must be valid date
-            return inputDate.toString();
+                }
+            //Keeps going until the data is invalid or the data is less than the min date                 
+            }while (!isDatevalid || inputDate.before(minDate) || inputDate.after(maxDate));
+            //userinput must be valid date and bigger than minDate
+            return formattedDate;
     }
      
 }
