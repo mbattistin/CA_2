@@ -167,7 +167,11 @@ public class MainControllerManager {
             case ADD_RECORD -> {
                 displayAddRecordMenu();
             }
-            case EXIT -> System.out.println("Thank you for visiting our system. See you next time!");
+            case EXIT -> {
+                System.out.println("==========================================================================================================================================================");
+                System.out.println("|                                                  Thank you for visiting our system. See you next time!                                                 |");
+                System.out.println("==========================================================================================================================================================");
+            }
         }         
      }
       
